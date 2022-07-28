@@ -12,6 +12,7 @@ import java.util.Set;
 @Projection(name = "bookDetail", types = {Book.class})
 public interface BookDetail {
 
+    Long getId();
     String getTitle();
     String getIsbn();
     Integer getTotalPages();
