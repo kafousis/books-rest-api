@@ -14,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.util.*;
 
 @SpringBootApplication @Slf4j
-public class BooksRestApi implements CommandLineRunner {
+public class BooksRestApi implements CommandLineRunner, RepositoryRestConfigurer {
 
 	// ### DO NOT INCREASE - POSSIBLE OVERFLOW ### //
 	private static final int TOTAL_GENRES = 30;
@@ -47,7 +50,15 @@ public class BooksRestApi implements CommandLineRunner {
 		SpringApplication.run(BooksRestApi.class, args);
 	}
 
-	// ---
+	@Override
+	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
+		config.exposeIdsFor(Book.class);
+		config.exposeIdsFor(Author.class);
+		config.exposeIdsFor(Publisher.class);
+		config.exposeIdsFor(Genre.class);
+	}
+
+// ---
 
 	@Override
 	public void run(String... args) throws Exception {
