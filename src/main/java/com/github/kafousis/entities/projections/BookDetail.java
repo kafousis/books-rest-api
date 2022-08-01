@@ -17,9 +17,13 @@ public interface BookDetail {
     String getIsbn();
     Integer getTotalPages();
     Integer getPublishedYear();
-    Publisher getPublisher();
-    Genre getGenre();
-    Set<Author> getAuthors();
+
+    @Value("#{target.publisher}")
+    Publisher getPublisherDetails();
+    @Value("#{target.genre}")
+    Genre getGenreDetails();
+    @Value("#{target.authors}")
+    Set<Author> getAuthorsDetails();
 
     @Value("#{target.authors.size()}")
     Integer getAuthorsSize();
